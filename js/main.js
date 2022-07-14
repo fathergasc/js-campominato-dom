@@ -1,32 +1,36 @@
-const containerDom = document.getElementById("container");
-const playButton = document.getElementById("play");
-let playerScore = 1;
+let containerDom = document.getElementById("container");
+let playButton = document.getElementById("play");
+let playerScore = 0;
+let bombBoxes = [];
+let gameOver = false;
 
 playButton.addEventListener(
   "click",
   function () {
     containerDom.innerHTML = "";
-    const difficulty = document.getElementById("difficulty").value;
+    let difficulty = document.getElementById("difficulty").value;
     console.log("difficulty: ", typeof difficulty);
-    const difficultyN = parseInt(difficulty);
+    let difficultyN = parseInt(difficulty);
     console.log("difficultyN: ", typeof difficultyN);
 
-    createToggableProgressiveNumberedBoxAndBombs(difficultyN);
+    initializeGame(difficultyN);
   }
   //  { once: true } non più necessario perché containerDom.innerHTML = "" resetta il contenuto
 );
 
-function createToggableProgressiveNumberedBoxAndBombs(number) {
-  const bombNumbers = [];
+function initializeGame(number) {
+  gameOver = false;
+  let bombNumbers = [];
+  playerScore = 0;
+  score.innerHTML = "Il tuo punteggio: " + playerScore;
   console.log("bombNumbers: ", bombNumbers);
-
   for (let i = 0; i < 16; i++) {
-    const randomNumber = uniqueRandomNumber(bombNumbers, 1, number);
+    let randomNumber = uniqueRandomNumber(bombNumbers, 1, number);
     bombNumbers.push(randomNumber);
   }
 
   for (let i = 1; i <= number; i++) {
-    const addBox = document.createElement("div");
+    let addBox = document.createElement("div");
     addBox.className = "box";
     if (difficulty.value == "81") {
       addBox.classList.add("box9");
@@ -38,16 +42,34 @@ function createToggableProgressiveNumberedBoxAndBombs(number) {
     containerDom.append(addBox);
     addBox.append(i);
 
+    if (bombNumbers.includes(i)) {
+      bombBoxes.push(addBox);
+    }
+
     addBox.addEventListener("click", function () {
-      if (bombNumbers.includes(i)) {
-        addBox.classList.add("bomb");
-        alert(`Hai perso con un punteggio di ${playerScore}`);
+      if (gameOver == false) {
+        if (bombNumbers.includes(i)) {
+          showBombs();
+          gameOver = true;
+          alert(`Hai perso con un punteggio di ${playerScore}`);
+        } else {
+          addBox.classList.toggle("active");
+          let score = document.getElementById("score");
+          playerScore++;
+          score.innerHTML = "Il tuo punteggio: " + playerScore;
+        }
       } else {
-        addBox.classList.toggle("active");
-        const score = document.getElementById("score");
-        score.innerHTML = "Il tuo punteggio: " + playerScore++;
+        alert("Per iniziare una nuova partita, clicca su \"gioca\" o aggiorna la pagina")
       }
     });
+  }
+}
+
+function showBombs() {
+  for (let i = 0; i < bombBoxes.length; i++) {
+    bombBoxes[i].classList.add("bomb");
+    bombBoxes[i].innerHTML = "💣";
+    //bombBoxes[i].textContent = "💣";    - metodo alternativo
   }
 }
 
