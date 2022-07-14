@@ -74,7 +74,7 @@ function initializeGame(boardSize) {
           if (playerScore == winScore) {
             gameOver = true;
             document.getElementById("sfxWin").play();
-            alert("Hai vinto");
+            alert("Hai vinto!");
           }
         }
       } else {

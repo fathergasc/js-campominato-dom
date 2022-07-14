@@ -5,7 +5,7 @@
 }
 
 html {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Alegreya', serif;
 }
 
 #container {
@@ -41,7 +41,7 @@ main {
 }
 
 body {
-    background-color: #54A759 ;
+    background-color: #7b72aa ;
     position: relative;
     height: 80%;
     overflow: hidden;
@@ -51,6 +51,7 @@ h1 {
     display: inline;
     padding-left: 20px;
     font-size: 45px;
+    text-transform: uppercase;
 }
 
 .box {
@@ -59,7 +60,10 @@ h1 {
     justify-content: center;
     align-items: center; 
     cursor: crosshair;
-    box-shadow: inset 0 0 2px #000000;
+    box-shadow: inset 0 0 2px 0.1px #000000;
+    background-color: #55AA55;
+    border-radius: 5px;
+    
 }
 
 .box.box10 {
@@ -78,7 +82,7 @@ h1 {
 }
 
 .box.active {
-    background-color: lightseagreen;
+    background-color: #AAAA39;
 }
 
 .box.bomb {
@@ -90,14 +94,21 @@ h1 {
 }
 
 #difficulty {
-    background-color: #10ce1d ;
+    background-color: #7b72aa ;
     border: 1px solid black;
     padding: 5px;
     cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-family: 'Alegreya', serif;
+}
+
+#labelD {
+    font-weight: bold;
 }
 
 #difficulty:hover {
-    background-color: #0d9916 ;
+    background-color: #5E5293 ;
     color: white;
 }
 
@@ -105,8 +116,13 @@ h1 {
     background-color: #c42929;
     border: 1px solid rgb(88, 1, 1);
     color: white;
-    padding: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    border-radius: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Alegreya', serif;
 }
 
 #play:hover {
@@ -131,4 +147,5 @@ footer {
 h2 {
     text-align: center;
     padding-bottom: 30px;
+    color: white;
 }
