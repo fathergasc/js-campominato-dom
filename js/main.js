@@ -1,14 +1,16 @@
-let containerDom = document.getElementById("container");
-let playButton = document.getElementById("play");
+const containerDom = document.getElementById("container");
+const playButton = document.getElementById("play");
+const numberMines = 16;
 let playerScore = 0;
 let bombBoxes = [];
 let gameOver = false;
+let winScore = 0;
 
 playButton.addEventListener(
   "click",
   function () {
     containerDom.innerHTML = "";
-    let difficulty = document.getElementById("difficulty").value;
+    const difficulty = document.getElementById("difficulty").value;
     console.log("difficulty: ", typeof difficulty);
     let difficultyN = parseInt(difficulty);
     console.log("difficultyN: ", typeof difficultyN);
@@ -22,9 +24,16 @@ function initializeGame(number) {
   gameOver = false;
   let bombNumbers = [];
   playerScore = 0;
+  winScore = number - numberMines;
+  document.getElementById("sfxBoom").pause(); //to pause the audio
+  document.getElementById("sfxBoom").fastSeek(0.0);
+  document.getElementById("sfxWin").pause();
+  document.getElementById("sfxWin").fastSeek(0.0); //to rewind audio before playing it again
+  console.log("winScore: ", winScore);
+
   score.innerHTML = "Il tuo punteggio: " + playerScore;
   console.log("bombNumbers: ", bombNumbers);
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < numberMines; i++) {
     let randomNumber = uniqueRandomNumber(bombNumbers, 1, number);
     bombNumbers.push(randomNumber);
   }
@@ -53,13 +62,23 @@ function initializeGame(number) {
           gameOver = true;
           alert(`Hai perso con un punteggio di ${playerScore}`);
         } else {
-          addBox.classList.toggle("active");
+          if (!addBox.classList.contains("active")) {
+            playerScore++;
+          }
+          addBox.classList.add("active");
           let score = document.getElementById("score");
-          playerScore++;
           score.innerHTML = "Il tuo punteggio: " + playerScore;
+
+          if (playerScore == winScore) {
+            gameOver = true;
+            document.getElementById("sfxWin").play();
+            alert("Hai vinto");
+          }
         }
       } else {
-        alert("Per iniziare una nuova partita, clicca su \"gioca\" o aggiorna la pagina")
+        alert(
+          'Per iniziare una nuova partita, clicca su "gioca" o aggiorna la pagina'
+        );
       }
     });
   }
@@ -71,6 +90,7 @@ function showBombs() {
     bombBoxes[i].innerHTML = "💣";
     //bombBoxes[i].textContent = "💣";    - metodo alternativo
   }
+  document.getElementById("sfxBoom").play();
 }
 
 function uniqueRandomNumber(array, min, max) {
