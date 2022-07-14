@@ -1,5 +1,6 @@
 const containerDom = document.getElementById("container");
 const playButton = document.getElementById("play");
+let playerScore = 1;
 
 playButton.addEventListener(
   "click",
@@ -11,6 +12,14 @@ playButton.addEventListener(
     console.log("difficultyN: ", typeof difficultyN);
 
     createToggableProgressiveNumberedBoxAndBombs(difficultyN);
+
+    const allBombs = document.getElementsByClassName(".bomb");
+    allBombs.addEventListener(
+    "click",
+      function () {
+        alert("Hai perso");
+      }
+    );
   }
   //  { once: true } non più necessario perché containerDom.innerHTML = "" resetta il contenuto
 );
@@ -39,10 +48,12 @@ function createToggableProgressiveNumberedBoxAndBombs(number) {
 
     addBox.addEventListener("click", function () {
       if (bombNumbers.includes(i)) {
-        addBox.classList.toggle("bomb");
+        addBox.classList.add("bomb");
       } else {
         addBox.classList.toggle("active");
-        console.log(i);
+        const score = document.getElementById("score");
+       
+        score.innerHTML = "Il tuo punteggio: " + playerScore++;
       }
     });
   }
