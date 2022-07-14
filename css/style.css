@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    height: 800px;
+    width: 800px;
+    margin: 10vh auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+}
+
+.headerLeft {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+body {
+    background-color: #7fffd4;
+}
+
+h1 {
+    display: inline;
+    padding-left: 20px;
+    font-size: 45px;
+}
+
+.box {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    cursor: crosshair;
+}
+
+.box.box10 {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+.box.box9 {
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.box.box7 {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+.box.active {
+    background-color: lightseagreen;
+}
+
+.px {
+    margin: 0 5px;
+}
+
+#difficulty {
+    background-color: #7fffd4;
+    border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#difficulty:hover {
+    background-color: #068057;
+    color: white;
+}
+
+#play {
+    background-color: #c42929;
+    border: 1px solid rgb(88, 1, 1);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#play:hover {
+    transform: scale(1.2);
+}
+
+footer {
+    height: 40px;
+    padding: 30px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.footerspan {
+    font-size: 20px;
+}
