@@ -12,14 +12,6 @@ playButton.addEventListener(
     console.log("difficultyN: ", typeof difficultyN);
 
     createToggableProgressiveNumberedBoxAndBombs(difficultyN);
-
-    const allBombs = document.getElementsByClassName(".bomb");
-    allBombs.addEventListener(
-    "click",
-      function () {
-        alert("Hai perso");
-      }
-    );
   }
   //  { once: true } non più necessario perché containerDom.innerHTML = "" resetta il contenuto
 );
@@ -49,10 +41,10 @@ function createToggableProgressiveNumberedBoxAndBombs(number) {
     addBox.addEventListener("click", function () {
       if (bombNumbers.includes(i)) {
         addBox.classList.add("bomb");
+        alert(`Hai perso con un punteggio di ${playerScore}`);
       } else {
         addBox.classList.toggle("active");
         const score = document.getElementById("score");
-       
         score.innerHTML = "Il tuo punteggio: " + playerScore++;
       }
     });
@@ -74,15 +66,3 @@ function uniqueRandomNumber(array, min, max) {
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-/*
-function getArrayOfRandomUniqueNumbers (array){
-    let randomNumber;
-    for (let i = 0; i < 16; i++) {
-      randomNumber = getRandomNumber(1, 100);  //////da cambiare
-      if (!array.includes(randomNumber)) {
-        array.push(randomNumber);   
-      }
-    }
-    return randomNumber;
-}
-*/
