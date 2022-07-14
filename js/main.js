@@ -20,32 +20,34 @@ playButton.addEventListener(
   //  { once: true } non più necessario perché containerDom.innerHTML = "" resetta il contenuto
 );
 
-function initializeGame(number) {
+function initializeGame(boardSize) {
   gameOver = false;
   let bombNumbers = [];
   playerScore = 0;
-  winScore = number - numberMines;
+  winScore = boardSize - numberMines;
+  document.getElementById('sfxBoom').volume = 0.2;
   document.getElementById("sfxBoom").pause(); //to pause the audio
-  document.getElementById("sfxBoom").fastSeek(0.0);
+  document.getElementById("sfxBoom").currentTime = 0;
+  document.getElementById('sfxWin').volume = 0.1;
   document.getElementById("sfxWin").pause();
-  document.getElementById("sfxWin").fastSeek(0.0); //to rewind audio before playing it again
+  document.getElementById("sfxWin").currentTime = 0; //to rewind audio before playing it again
   console.log("winScore: ", winScore);
 
   score.innerHTML = "Il tuo punteggio: " + playerScore;
   console.log("bombNumbers: ", bombNumbers);
   for (let i = 0; i < numberMines; i++) {
-    let randomNumber = uniqueRandomNumber(bombNumbers, 1, number);
+    let randomNumber = uniqueRandomNumber(bombNumbers, 1, boardSize);
     bombNumbers.push(randomNumber);
   }
 
-  for (let i = 1; i <= number; i++) {
+  for (let i = 1; i <= boardSize; i++) {
     let addBox = document.createElement("div");
     addBox.className = "box";
-    if (difficulty.value == "81") {
+    if (boardSize == 81) {
       addBox.classList.add("box9");
-    } else if (difficulty.value == "49") {
+    } else if (boardSize == 49) {
       addBox.classList.add("box7");
-    } else if (difficulty.value == "100") {
+    } else if (boardSize == 100) {
       addBox.classList.add("box10");
     }
     containerDom.append(addBox);
