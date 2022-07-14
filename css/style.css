@@ -66,6 +66,10 @@ h1 {
     background-color: lightseagreen;
 }
 
+.box.bomb {
+    background-color: red;
+}
+
 .px {
     margin: 0 5px;
 }
