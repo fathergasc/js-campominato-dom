@@ -5,11 +5,16 @@ let playerScore = 0;
 let bombBoxes = [];
 let gameOver = false;
 let winScore = 0;
+const alert = document.getElementById("alert");
+const scoreDom = document.getElementById("score");
 
 playButton.addEventListener(
   "click",
   function () {
+    scoreDom.style.visibility = "visible";
     containerDom.innerHTML = "";
+    alert.innerHTML = "";
+    alert.style.visibility = "hidden";
     const difficulty = document.getElementById("difficulty").value;
     console.log("difficulty: ", typeof difficulty);
     let difficultyN = parseInt(difficulty);
@@ -75,7 +80,8 @@ function initializeGame(boardSize) {
         if (bombNumbers.includes(i)) {
           showBombs();
           gameOver = true;
-          alert(`Hai perso con un punteggio di ${playerScore}`);
+          alert.innerHTML = `Hai perso con un punteggio di ${playerScore}`;
+          alert.style.visibility = "visible";
         } else {
           if (!addBox.classList.contains("active")) {
             playerScore++;
@@ -87,13 +93,13 @@ function initializeGame(boardSize) {
           if (playerScore == winScore) {
             gameOver = true;
             document.getElementById("sfxWin").play();
-            alert("Hai vinto!");
+            alert.innerHTML = "Hai vinto!";
+            alert.style.visibility = "visible";
           }
         }
       } else {
-        alert(
-          'Per iniziare una nuova partita, clicca su "gioca" o aggiorna la pagina'
-        );
+        alert.innerHTML = `Per iniziare una nuova partita, clicca su "gioca" o aggiorna la pagina`;
+        alert.style.visibility = "visible";
       }
     });
   }
