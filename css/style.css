@@ -105,6 +105,11 @@ h1 {
     height: calc(100% / 7);
 }
 
+.box.box4 {
+    width: calc(100% / 4);
+    height: calc(100% / 4);
+}
+
 .box.active {
     background-color: #AAAA39;
 }

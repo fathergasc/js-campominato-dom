@@ -1,6 +1,6 @@
 const containerDom = document.getElementById("container");
 const playButton = document.getElementById("play");
-const numberMines = 16;
+let numberMines = 16;
 let playerScore = 0;
 let bombBoxes = [];
 let gameOver = false;
@@ -11,6 +11,7 @@ const scoreDom = document.getElementById("score");
 playButton.addEventListener(
   "click",
   function () {
+    numberMines = 16;
     scoreDom.style.visibility = "visible";
     containerDom.innerHTML = "";
     alert.innerHTML = "";
@@ -19,6 +20,9 @@ playButton.addEventListener(
     console.log("difficulty: ", typeof difficulty);
     let difficultyN = parseInt(difficulty);
     console.log("difficultyN: ", typeof difficultyN);
+    if (difficultyN == 16) {
+      numberMines = 0;
+    }
 
     initializeGame(difficultyN);
   }
@@ -57,6 +61,8 @@ function initializeGame(boardSize) {
       addBox.classList.add("box7");
     } else if (boardSize == 100) {
       addBox.classList.add("box10");
+    } else if (boardSize == 16) {
+      addBox.classList.add("box4");
     }
     containerDom.append(addBox);               //add the box to the container
     addBox.append(i);                   //add the number to the box
