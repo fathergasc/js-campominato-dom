@@ -20,6 +20,9 @@ playButton.addEventListener(
   //  { once: true } non più necessario perché containerDom.innerHTML = "" resetta il contenuto
 );
 
+/* initializeGame resets the game to a blank state, resetting let gameOver, the player score and establishing the new winning score depending on the difficulty selected.
+The function play a sound when you get the game over or victory alert. */
+
 function initializeGame(boardSize) {
   gameOver = false;
   let bombNumbers = [];
@@ -35,12 +38,12 @@ function initializeGame(boardSize) {
 
   score.innerHTML = "Il tuo punteggio: " + playerScore;
   console.log("bombNumbers: ", bombNumbers);
-  for (let i = 0; i < numberMines; i++) {
+  for (let i = 0; i < numberMines; i++) {            //generate random numbers for the bombs
     let randomNumber = uniqueRandomNumber(bombNumbers, 1, boardSize);
     bombNumbers.push(randomNumber);
   }
 
-  for (let i = 1; i <= boardSize; i++) {
+  for (let i = 1; i <= boardSize; i++) {          //generate the boxes with the appropriate width and height of the boxes to keep the game board square
     let addBox = document.createElement("div");
     addBox.className = "box";
     if (boardSize == 81) {
@@ -50,14 +53,24 @@ function initializeGame(boardSize) {
     } else if (boardSize == 100) {
       addBox.classList.add("box10");
     }
-    containerDom.append(addBox);
-    addBox.append(i);
+    containerDom.append(addBox);               //add the box to the container
+    addBox.append(i);                   //add the number to the box
 
-    if (bombNumbers.includes(i)) {
+    if (bombNumbers.includes(i)) {       //if i is included in the array bombNumbers, add it to the bombBoxes array to keep track of the positions of the bombs
       bombBoxes.push(addBox);
     }
 
-    addBox.addEventListener("click", function () {
+
+    /* the following code is to add the event listener to the boxes. 
+    IF gameOver is false:
+     - IF you click on a box containing a bomb, it recalls showBombs(), changes gameOver to true and you get the game over alert and score. 
+     - ELSE 
+        - IF you click on a safe box, it checks if it doesn't have the class "active" and it adds a point to the score in that case to prevent to add points to the score in case you click multiple times on the same box. 
+        After this check, it adds the "active" class to the boxes and updates the score in the HTML. 
+        IF the player score is equal to winScore, defined by the number of total boxes, difficultyN, minus the number of mines, declared in numberMines, gameOver changes to true, you get the victory sound and the victory alert. 
+    ELSE !gameOver == false and you get an alert to start a new game, preventing to click on the boxes after the end of the match.*/
+    
+    addBox.addEventListener("click", function () { 
       if (gameOver == false) {
         if (bombNumbers.includes(i)) {
           showBombs();
@@ -86,6 +99,8 @@ function initializeGame(boardSize) {
   }
 }
 
+
+/* makes all the bombs show up when one of the boxes whose i is inside the bombBoxes[]. It adds the "bomb" class and adds a bomb emoji in the HTML. Then plays the bomb sfx*/
 function showBombs() {
   for (let i = 0; i < bombBoxes.length; i++) {
     bombBoxes[i].classList.add("bomb");
@@ -95,6 +110,7 @@ function showBombs() {
   document.getElementById("sfxBoom").play();
 }
 
+// returns a random unique number between min and max
 function uniqueRandomNumber(array, min, max) {
   let validNumber = false;
   let generatedNumber;
@@ -107,6 +123,7 @@ function uniqueRandomNumber(array, min, max) {
   return generatedNumber;
 }
 
+// returns a random number between min and max
 function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
