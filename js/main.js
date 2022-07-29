@@ -11,7 +11,6 @@ const scoreDom = document.getElementById("score");
 playButton.addEventListener(
   "click",
   function () {
-    numberMines = 16;
     scoreDom.style.visibility = "visible";
     containerDom.innerHTML = "";
     alert.innerHTML = "";
